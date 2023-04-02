@@ -16,39 +16,20 @@ const Clock: React.FC<ClockProps> = ({ weatherData }) => {
     }
   }, [weatherData]);
 
-  useEffect(() => {
-    if (currentTime) {
-      const timeDifference = 1000 - currentTime.getMilliseconds();
-      const syncTimer = setTimeout(() => {
-        setCurrentTime((prevTime) => {
-          if (prevTime) {
-            return new Date(prevTime.getTime() + timeDifference);
-          }
-          return prevTime;
-        });
-      }, timeDifference);
+  const formattedTime = (time: Date | null) => {
+    if (!time) return "";
 
-      const timer = setInterval(() => {
-        setCurrentTime((prevTime) => {
-          if (prevTime) {
-            return new Date(prevTime.getTime() + 1000);
-          }
-          return prevTime;
-        });
-      }, 1000);
-
-      return () => {
-        clearTimeout(syncTimer);
-        clearInterval(timer);
-      };
-    }
-  }, [currentTime]);
+    return new Intl.DateTimeFormat("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(time);
+  };
 
   return (
     <div>
       {currentTime ? (
         <p className="neon-text text-black dark:text-white text-center text-3xl">
-          {currentTime.toLocaleTimeString()}
+          {formattedTime(currentTime)}
         </p>
       ) : (
         <p>Loading...</p>
