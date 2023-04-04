@@ -1,5 +1,3 @@
-// components/Clock.tsx
-
 import { useEffect, useState } from "react";
 
 interface ClockProps {

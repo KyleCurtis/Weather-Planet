@@ -1,5 +1,3 @@
-// components/WeatherDisplay.tsx
-
 import { useState, ChangeEvent, FormEvent } from "react";
 import { fetchWeather } from "../utils/fetchWeather";
 
